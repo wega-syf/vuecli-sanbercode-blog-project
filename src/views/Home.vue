@@ -1,5 +1,7 @@
 <template>
   <v-container grid-list-xs class="ma-1 pa-0">
+    <v-btn color="success" @click="add">Add by 10</v-btn>
+    <h3> {{getCount}} </h3>
     <h1 class="mr-3 mt-3 text-center">
       Recommended Blogs For You
     </h1>
@@ -26,6 +28,8 @@
 <script>
   import BlogCard from '../components/BlogCard.vue'
 
+  import {mapGetters,mapActions} from 'vuex'
+
   export default {
     name: 'Home',
     components:{
@@ -37,16 +41,30 @@
         domain:'http://demo-api-vue.sanbercloud.com'
       }
     },
+    methods: {
+      go(){
+        console.log(this.$store.state.count);  //ngetest state store
+        const api = this.domain + '/api/v2/blog/random/4'
+        this.axios.get(api)
+        .then((response) => {
+          let {blogs} = response.data
+          console.log(blogs)
+          this.blogs = blogs})
 
+        .catch(error => console.log(error))
+        },
+      ...mapActions([
+        'incrementAction' 
+      ]),
+      add(){
+        this.incrementAction(10)
+      },
+    },
+    computed:{
+      ...mapGetters(['getCount'])
+    },
     created(){
-      const api = this.domain + '/api/v2/blog/random/4'
-      this.axios.get(api)
-      .then((response) => {
-        let {blogs} = response.data
-        console.log(blogs)
-        this.blogs = blogs})
-
-      .catch(error => console.log(error))
+      this.go()
     }
   }
 </script>
