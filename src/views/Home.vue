@@ -43,7 +43,7 @@
     },
     methods: {
       go(){
-        console.log(this.$store.state.count);  //ngetest state store
+        // console.log(this.$store.modules);  //ngetest state store
         const api = this.domain + '/api/v2/blog/random/4'
         this.axios.get(api)
         .then((response) => {
@@ -53,15 +53,17 @@
 
         .catch(error => console.log(error))
         },
-      ...mapActions([
-        'incrementAction' 
-      ]),
+      ...mapActions({
+        'incrementAction' : 'counter/incrementAction'
+      }),
       add(){
         this.incrementAction(10)
       },
     },
     computed:{
-      ...mapGetters(['getCount'])
+      ...mapGetters({
+        'getCount': 'counter/getCount'
+        })
     },
     created(){
       this.go()
