@@ -58,9 +58,13 @@
     </v-navigation-drawer>
 
      <!--TOP NAV BAR -->
-    <v-app-bar app color='orange' dark>
+    <v-app-bar app color='primary'>
       <v-app-bar-nav-icon @click.stop="toggleDrawer"></v-app-bar-nav-icon>
       <v-toolbar-title>Blogs Tutorial</v-toolbar-title>
+      <div class="pt-4 ml-3">
+
+        <ToggleDarkMode  />
+      </div>
     </v-app-bar> 
 
     <!-- Sizes your content based upon application components -->
@@ -87,13 +91,14 @@
 import {mapActions,mapGetters} from 'vuex'
 import Alert from './components/Alert.vue'
 import Dialog from './components/Dialog.vue'
-
+import ToggleDarkMode from './components/ToggleDarkMode.vue'
 
 export default {
   name: 'App',
   components:{
     Alert,
-    Dialog
+    Dialog,
+    ToggleDarkMode
   },
   data: () => ({
     //
