@@ -81,7 +81,7 @@
 
     <v-footer app>
       <!-- -->
-      @Wegs 2022 | Sanbercode Official
+      @Wegs 2022 | Sanbercode Vue JS 
     </v-footer>
   </v-app>
 
