@@ -22,7 +22,7 @@
               <v-icon left>mdi-lock</v-icon>
               Login
             </v-btn>
-            <v-btn block color='success' class="mb-1">
+            <v-btn block color='success' @click="signUp" class="mb-1">
               <v-icon left>mdi-account</v-icon>
               Sign Up
             </v-btn>
@@ -147,6 +147,9 @@ export default {
         //   text : 'Selamat, anda berhasil login'
 
       // })
+    },
+    signUp(){
+      this.setDialogComponent({component: 'register'})
     },
     logout(){
       // Call a request to the API to logout
