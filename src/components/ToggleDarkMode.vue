@@ -2,7 +2,7 @@
     <div class="pt-1">
         <v-switch v-model="darkmodeComp" color="blue"> 
             <v-icon slot="prepend" color='white'> {{iconName}} </v-icon>
-            <h3 class="font-weight-light" slot="label">Dark Mode</h3>
+            <h3 class="font-weight-light" slot="label"> {{label}} </h3>
             
         </v-switch>
     </div>
@@ -13,6 +13,7 @@ name:'ToggleDarkMode',
   data () {
     return {
       darkmode: false,
+      label:'Light',
       iconName:'mdi-white-balance-sunny'
     }
   },
@@ -28,8 +29,12 @@ name:'ToggleDarkMode',
           localStorage.setItem('DarkMode', this.darkmode)
 
         //   Change icon
-        if (this.darkmode === false) this.iconName ='mdi-white-balance-sunny'
-        if (this.darkmode === true) this.iconName = 'mdi-moon-waxing-crescent'
+        if (this.darkmode === false) {
+            this.iconName ='mdi-white-balance-sunny'
+            this.label = 'Light'}
+        else {
+            this.iconName = 'mdi-moon-waxing-crescent'
+            this.label = 'Dark'}
       }
     },
   },

@@ -1,8 +1,7 @@
 <template>
  <!-- App.vue -->
   <v-app>
-    <Alert/>
-    <Dialog />
+    
     <!-- NAV SIDEBAR -->
     <v-navigation-drawer app v-model="drawer"> 
       
@@ -61,6 +60,7 @@
     <v-app-bar app color='primary'>
       <v-app-bar-nav-icon @click.stop="toggleDrawer"></v-app-bar-nav-icon>
       <v-toolbar-title>Blogs Tutorial</v-toolbar-title>
+      <v-spacer></v-spacer>
       <div class="pt-4 ml-3">
 
         <ToggleDarkMode  />
@@ -83,6 +83,10 @@
       <!-- -->
       @Wegs 2022 | Sanbercode Vue JS 
     </v-footer>
+
+    <!-- Calling other components -->
+    <Alert/>
+    <Dialog />
   </v-app>
 
 </template>

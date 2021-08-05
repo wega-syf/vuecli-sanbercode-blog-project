@@ -1,17 +1,22 @@
 <template lang="">
     <!-- Pake keep alive supaya ter cache -->
-    <keep-alive>
-        <v-dialog
-            v-model="dialogProp"
-            fullscreen 
-            persistent hide-overlay
-            transition="dialog-bottom-transition"
-        >
-            <!-- Use dynamic component -->
-            <component :is="dialogComponent" @closed='setDialogStatus'></component>
-            <!-- <Login @closed='setDialogStatus'/> -->
-        </v-dialog>
-    </keep-alive>
+      
+        <keep-alive>
+            <v-row justify='center'>
+
+                <v-dialog
+                    v-model="dialogProp"
+                    persistent overlay
+                    width="600px"
+                >
+                    <!-- Use dynamic component -->
+                    <component :is="dialogComponent" @closed='setDialogStatus'></component>
+                    <!-- <Login @closed='setDialogStatus'/> -->
+                </v-dialog>
+            
+            </v-row>
+        </keep-alive>
+    
 </template>
 <script>
 import {mapGetters, mapActions} from 'vuex'
