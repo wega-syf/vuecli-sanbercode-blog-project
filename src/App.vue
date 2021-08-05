@@ -107,7 +107,8 @@ export default {
     menus:[
       {title: 'Home', icon :'mdi-home', route:'/'},
       {title :' Blogs', icon : 'mdi-note', route: '/blogs'},
-      {title :' About', icon : 'mdi-information', route: '/about'}
+      {title :' About', icon : 'mdi-information', route: '/about'},
+      {title :' AddBlog ', icon : 'mdi-book-plus', route: '/add-blog'}
     ]
   }),
   computed: {
