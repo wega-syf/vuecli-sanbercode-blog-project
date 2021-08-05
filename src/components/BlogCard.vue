@@ -35,7 +35,7 @@ export default {
     props:['blog'],
     data() {
         return {
-            domain:'http://demo-api-vue.sanbercloud.com'
+            domain:'https://demo-api-vue.sanbercloud.com'
         }
     },
 }

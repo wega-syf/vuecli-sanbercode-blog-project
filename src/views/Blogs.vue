@@ -31,7 +31,7 @@ export default {
     },
     data() {
         return {
-            domain:'http://demo-api-vue.sanbercloud.com',
+            domain:'https://demo-api-vue.sanbercloud.com',
             blogs:[],
             page: 0,
             lengthPage: 0,

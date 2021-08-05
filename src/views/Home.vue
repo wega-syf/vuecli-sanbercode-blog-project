@@ -1,7 +1,6 @@
 <template>
   <v-container grid-list-xs class="ma-1 pa-0">
-    <v-btn color="success" @click="add">Add by 10</v-btn>
-    <h3> {{getCount}} </h3>
+    
     <h1 class="mr-3 mt-3 text-center">
       Recommended Blogs For You
     </h1>
@@ -22,6 +21,11 @@
       :blog='blog' 
       />
     </v-layout>
+    <br>
+    <h3>This is just a counter</h3>
+    <p>It was just for practice purpose</p>
+    <v-btn color="success" @click="add">Add by 10</v-btn>
+    <h3> Counter : {{getCount}} </h3>
   </v-container>
 </template>
 
@@ -38,7 +42,7 @@
     data() {
       return {
         blogs:[],
-        domain:'http://demo-api-vue.sanbercloud.com'
+        domain:'https://demo-api-vue.sanbercloud.com'
       }
     },
     methods: {

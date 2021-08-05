@@ -53,7 +53,7 @@ export default {
             showPassword:false,
             email:'',
             password:'',
-            domain:'http://demo-api-vue.sanbercloud.com',
+            domain:'https://demo-api-vue.sanbercloud.com',
         }
     },
     methods: {

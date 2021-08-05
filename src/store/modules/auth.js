@@ -31,7 +31,7 @@ export default{
         checkToken: ({commit}, payload) => {
             const config = {
                 method:'post',
-                url:'http://demo-api-vue.sanbercloud.com/api/v2/auth/me',
+                url:'https://demo-api-vue.sanbercloud.com/api/v2/auth/me',
                 headers :{
                     'Authorization' : 'Bearer ' + payload
                     // bearer nya kudu di spasiin bruh
