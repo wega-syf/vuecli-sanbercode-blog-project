@@ -1,23 +1,30 @@
 <template lang="">
-    <v-container class='ma-0 pa-0' grid-list-sm>
-        <v-subheader>All Blogs</v-subheader>
+    <v-container>
+        <div class='text-center '>
+            <h1>All Blogs</h1>
+        </div>
+        <div class='mt-12 pl-5 pr-5'>
 
-        <v-layout row wrap>
-            <BlogCard
-            v-for="(blog, index) in blogs" 
-            :key="index"
-            :blog='blog' 
-            />
-        </v-layout>
+            <v-flex xs12 class="mt-4">
+                <v-row class="d-flex" justify='center'>
+                <v-col cols="12" xs='12' md="6"
+                v-for="(blog, index) in blogs" :key="index">
+                    <BlogCard 
+                    :blog='blog'/>
+                </v-col>
+                </v-row>
+            </v-flex>
 
-        <!-- PENOMORAN HALAMAN / PAGINATION -->
-        <v-pagination
-        v-model="page"
-        :length="15"
-        :total-visible="7"
-        @input="go"
-        circle
-        ></v-pagination>
+            <!-- PENOMORAN HALAMAN / PAGINATION -->
+            <v-pagination
+            class='mt-8'
+            v-model="page"
+            :length="15"
+            :total-visible="7"
+            @input="go"
+            circle
+            ></v-pagination>
+        </div>
 
     </v-container>
 </template>
