@@ -27,6 +27,7 @@
                   </tbody>
               </v-simple-table>
           </v-card-text>
+          <!-- Belum pake script -->
           <div class="btn_edit">
               <template>
             <v-btn fab small>
