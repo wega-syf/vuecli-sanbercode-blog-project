@@ -6,7 +6,8 @@
 
             <v-dialog
                 v-model="dialogProp"
-                fullscreen hide-overlay
+                persistent
+                fullscreen overlay
                 
             >
                 <!-- Use dynamic component -->
@@ -20,7 +21,6 @@
 </template>
 <script>
 import {mapGetters, mapActions} from 'vuex'
-// import Login from './Login.vue'
 
 export default {
     components:{

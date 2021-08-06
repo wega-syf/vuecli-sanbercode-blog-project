@@ -4,21 +4,19 @@
       <v-container class='fill-height' fluid>
         <v-row align='center' justify='center' >
           <v-col cols='12' lg='5' md='8' sm='8'>    
-
-            <v-card class='d-flex justify-center elevation-6 rounded-xl' 
-            color="background lighten" >
-              
+            <v-card class='d-flex justify-center elevation-6 rounded-xl' color="background lighten" >
               <v-container fluid>
                 <v-row align='center' justify='center' >
                   <v-col cols='12' lg='10'>
                     <v-form ref=form class='pa-5 pb-10 mt-2'>
                       <!-- Header -->
-                      <div class='pa-3 text-center'>
-                        <h3>Hello, Welcome back to</h3>
-                        <h2>Sanberposts Blogs &amp; News</h2>
+                      <div class='pa-3 text-left'>
+                        <h1 class='mb'>Login</h1>
+                        <v-divider></v-divider>
+                        <p class='mt-5 '>Hello! Welcome back to Sanberposts Blogs &amp; News!</p>
                       </div>
 
-                      <div class='mt-10 mb-5'>
+                      <div class='mt-5 mb-8'>
 
                         <!-- Email Field -->
                         <v-text-field
@@ -54,7 +52,7 @@
                       <!-- Login Button -->
                       <div class='text-xl-center mt-3'>
                         <v-row justify='center'>
-                          <v-btn color="primary" class='flat' medium
+                          <v-btn color="primary" medium
                           @click='submit'>
                             <v-icon left small>mdi-lock</v-icon> &nbsp;
                           Login
