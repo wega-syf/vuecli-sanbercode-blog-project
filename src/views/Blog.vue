@@ -27,31 +27,94 @@
                   </tbody>
               </v-simple-table>
           </v-card-text>
-          <!-- Belum pake script -->
-          <div class="btn_edit">
-              <template>
-            <v-btn fab small>
-                <v-icon>mdi-pencil</v-icon>
-            </v-btn>
-              </template>
-            <v-btn fab small>
-                <v-icon>mdi-delete</v-icon>
-            </v-btn>
-            <v-btn fab small>
-                <v-icon>mdi-upload</v-icon>
-            </v-btn>
-          </div>
+          
+          <v-dialog persistent v-model="dialog">
+            <template v-slot:activator="{ on, attrs }">
+                <v-btn class="mr-3 ml-3" v-bind="attrs" v-on="on" text @click="editBlog(blog)">
+                    <v-icon>mdi-pencil</v-icon>
+                    Edit
+                </v-btn>
+            </template>
+            <v-card>
+                <v-card-title>
+                    <v-icon>mdi-post</v-icon>
+                    <span> Edit Blogs</span>
+                </v-card-title>
+                <v-card-text>
+                    <v-text-field required v-model="title" label="Judul Blog"></v-text-field>
+                    <v-textarea required v-model="description" label="Blog Description"></v-textarea>
+                </v-card-text>
+                <v-card-actions>
+                    <v-row class='ma-3 pa-3'>
+                        <v-spacer></v-spacer>
+                        <v-btn color="blue" text @click="updateBlog(idEditBlog)">Edit Blog</v-btn>
+                        <v-btn color="blue" text @click="dialog = false">Cancel</v-btn>
+                    </v-row>
+                </v-card-actions>
+            </v-card>
+          </v-dialog>
+
+        <v-btn class="mr-3" text>
+            <v-icon>mdi-delete</v-icon>
+            Delete
+        </v-btn>
+        <v-dialog persistent v-model="dialogPhoto">
+            <template v-slot:activator="{ on, attrs }">
+                <v-btn text v-bind="attrs" v-on="on">
+                    <v-icon>mdi-upload</v-icon>
+                    Upload Photo
+                </v-btn>
+            </template>
+            <template>
+                <v-card>
+                    <v-card-title>
+                        <!-- <v-icon>mdi-post</v-icon> -->
+                        <span> Upload Blog Photo</span>
+                    </v-card-title>
+                    <v-file-input
+                        v-model="file"
+                        class="ma-3"
+                        show-size
+                        counter
+                        multiple
+                        label="File input"
+                    ></v-file-input>
+                    <v-card-actions>
+                        <v-row class='ma-3 pa-3'>
+                            <v-spacer></v-spacer>
+                            <v-btn color="blue" text @click="submitPhoto(idUploadBlog)">Upload</v-btn>
+                            <v-btn color="blue" text @click="dialogPhoto = false">Cancel</v-btn>
+                        </v-row>
+                    </v-card-actions>
+                </v-card>
+            </template>
+        </v-dialog>
     </v-card>
 </template>
 <script>
+import { mapActions, mapGetters } from 'vuex'
 export default {
     name:'Blog',
     data() {
         return {
+            title: '',
+            description: '',
             blog:{},
-            domain:'https://demo-api-vue.sanbercloud.com'
+            error: [],
+            domain:'https://demo-api-vue.sanbercloud.com',
+            dialog: false,
+            dialogPhoto: false,
+            idEditBlog: null,
+            idUploadBlog: null,
+            file: ''
         }
-    },methods: {
+    },
+    computed: {
+        ...mapGetters({
+            token : 'auth/getToken'
+        })
+    },
+    methods: {
         go(){
             let{id} = this.$route.params
             const config={
@@ -64,14 +127,89 @@ export default {
                 this.blog = response.data.blog;
                 
             }).catch(error => console.log(error))
-        }
-    },created() {
+        },
+        editBlog: function(blog){
+            this.title = blog.title
+            this.description = blog.description
+            this.idEditBlog = blog.id
+        },
+        clearForm: function(){
+            this.title = ''
+            this.description = ''
+            this.idEditBlog = null
+            this.idUploadBlog = null
+        },
+        updateBlog: function(id){
+            if(this.error.length === 0){
+                let formData = new FormData()
+                formData.append('title', this.title)
+                formData.append('description', this.description)
+
+                let config = {
+                    method : "post",
+                    url : `http://demo-api-vue.sanbercloud.com/api/blog/${id}`,
+                    params : {_method : 'PUT'},
+                    headers :{'Authorization' : 'Bearer ' + this.token},
+                    data : formData
+                }
+
+                this.axios(config)
+                    .then( () =>{
+                        this.clearForm()
+                        this.setAction({
+                            status: true,
+                            color: 'deep-purple darken-2',
+                            text : 'Blog berhasil di edit'
+                        })
+                    })
+                    .catch( (error) => {
+                        console.log(error)
+                        this.setAction({
+                            status : true,
+                            color: 'deep-purple darken-2',
+                            text : error.data
+                        })
+                    })
+            }
+        },
+
+        submitPhoto: function(id){
+            let formData = new FormData()
+            formData.append('photo', this.file)
+
+            let config = {
+                method : "post",
+                url : `http://demo-api-vue.sanbercloud.com/api/blog/${id}/upload-photo`,
+                headers :{'Authorization' : 'Bearer ' + this.token},
+                data : formData
+            }
+
+            this.axios(config)
+                .then( () =>{
+                    this.setAction({
+                        status: true,
+                        color: 'deep-purple darken-2',
+                        text : 'Photo berhasil di upload'
+                    })
+                })
+                .catch( (error) => {
+                    console.log(error)
+                    this.setAction({
+                        status : true,
+                        color: 'deep-purple darken-2',
+                        text : error.data
+                    })
+                })
+        },
+        ...mapActions({
+            'setAction' : 'alert/setAction',
+        })
+    },
+    created() {
         this.go()
     },
 }
 </script>
 <style>
-    .btn_edit{
-        padding-left: 15px;
-    }
+
 </style>
