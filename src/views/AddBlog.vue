@@ -1,7 +1,5 @@
 <template>
     <div>
-        <!-- <v-form @submit="submit">
-        </v-form> -->
         <v-text-field
             v-model="title"
             name="title"
@@ -10,8 +8,11 @@
         ></v-text-field>
         <v-textarea label="Blog Description" name="description" v-model="description"></v-textarea>
         <div>
-            <v-btn color="success" @click="submit">
+            <v-btn color="success" fab small @click="submit">
                 <v-icon>mdi-book-plus</v-icon>
+            </v-btn>
+            <v-btn color="blue-grey darken-1" fab small @click='closeAddBlog'>
+                <v-icon>mdi-close</v-icon>
             </v-btn>
         </div>
     </div>
@@ -26,7 +27,6 @@ import { mapActions, mapGetters } from 'vuex'
                 description: '',
                 error: [],
                 domain: 'https://demo-api-vue.sanbercloud.com',
-                // buttonStatus: 'submit'
             }
         },
         computed: {
@@ -35,6 +35,15 @@ import { mapActions, mapGetters } from 'vuex'
             })
         },
         methods: {
+            clearForm(){
+                this.title = ''
+                this.description = ''
+            },
+
+            closeAddBlog(){
+                this.$emit('closed',false)
+            },
+
             submit(){
                 if(this.error.length === 0){
                     let formData = new FormData()
@@ -49,6 +58,7 @@ import { mapActions, mapGetters } from 'vuex'
                     }
                     this.axios(config)
                         .then(() => {
+                            this.clearForm()
                             this.setAction({
                                 status: true,
                                 color: 'deep-purple darken-2',

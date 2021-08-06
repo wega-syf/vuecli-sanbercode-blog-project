@@ -1,4 +1,4 @@
-<template lang="">
+<template>
     <v-card >
          <v-img
           :src='blog.photo?domain + blog.photo : "https://picsum.photos/590/200"'
@@ -27,6 +27,19 @@
                   </tbody>
               </v-simple-table>
           </v-card-text>
+          <div class="btn_edit">
+              <template>
+            <v-btn fab small>
+                <v-icon>mdi-pencil</v-icon>
+            </v-btn>
+              </template>
+            <v-btn fab small>
+                <v-icon>mdi-delete</v-icon>
+            </v-btn>
+            <v-btn fab small>
+                <v-icon>mdi-upload</v-icon>
+            </v-btn>
+          </div>
     </v-card>
 </template>
 <script>
@@ -56,6 +69,8 @@ export default {
     },
 }
 </script>
-<style lang="">
-    
+<style>
+    .btn_edit{
+        padding-left: 15px;
+    }
 </style>
