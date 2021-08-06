@@ -3,13 +3,22 @@
   <v-app :style="{background: $vuetify.theme.themes[theme].background}">
     
     <!-- NAV SIDEBAR -->
-    <v-navigation-drawer app v-model="drawer"> 
+    <v-navigation-drawer  app v-model="drawer"
+    > 
       
-        <v-list>
+        <v-list nav rounded>
+          <v-list-item>
+            <v-list-item-title class="pa-3 text-center">
+              <h4>Sanberposts Dashboard</h4> 
+            </v-list-item-title>
+          
+          </v-list-item>
+            
+          <v-subheader>Account</v-subheader>
 
-          <v-list-item v-if="!guest">
+          <v-list-item v-if="!guest" >
             <v-list-item-avatar > 
-                <v-img :src='user.photo_profile ? (domain + user.photo_profile) : "https://picsum.photos/200/300"'></v-img>
+                <v-img :src='user.photo_profile ? (domain + user.photo_profile) : "https://picsum.photos/"'></v-img>
             </v-list-item-avatar>
             <v-list-item-content >
               {{user.name}}
@@ -27,10 +36,10 @@
             </v-btn>
           </div>
 
-          <v-divider></v-divider>
+          <v-subheader>Pages</v-subheader>
           
-          <v-list-item
-           v-for="(item, index) in menus" :key="index" :to="item.route">
+          <v-list-item 
+          v-for="(item, index) in menus" :key="index" :to="item.route">
             <v-list-item-icon>
               <v-icon left>{{item.icon}}</v-icon>
             </v-list-item-icon>
@@ -44,8 +53,9 @@
           </v-list-item>
 
           <!-- Add Blog -->
-          <v-list-item v-if="!guest"
-           :to="addBlog.route">
+          <v-list-item
+          :to="addBlog.route"
+          :disabled='guest'>
             <v-list-item-icon>
               <v-icon left>{{addBlog.icon}}</v-icon>
             </v-list-item-icon>
@@ -73,9 +83,9 @@
     </v-navigation-drawer>
 
      <!--TOP NAV BAR -->
-    <v-app-bar app color='primary'>
+    <v-app-bar app color='primary' :src="require('./assets/' + srcPic)">
       <v-app-bar-nav-icon @click.stop="toggleDrawer"></v-app-bar-nav-icon>
-      <v-toolbar-title>Blogs Tutorial</v-toolbar-title>
+      <v-toolbar-title>SanberPosts</v-toolbar-title>
       <v-spacer></v-spacer>
       <div class="pt-4 ml-3">
 
@@ -137,7 +147,8 @@ export default {
     ...mapGetters({
       guest : 'auth/getGuest',
       user : 'auth/getUser',
-      token : 'auth/getToken'
+      token : 'auth/getToken',
+      srcPic : 'dialog/getSrc'
     }),
     theme(){
       return (this.$vuetify.theme.dark) ? 'dark' : 'light'

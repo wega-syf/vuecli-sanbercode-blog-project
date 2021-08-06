@@ -9,8 +9,8 @@ export default new Vuetify({
         dark:false,
         themes: {
           light: {
-            primary: colors.green,
-            secondary: colors.grey.darken1,
+            primary: colors.cyan,
+            secondary: colors.deepOrange,
             anchor: colors.grey.darken1,
             background: '#FAFAFA'
           },
@@ -23,7 +23,7 @@ export default new Vuetify({
             info: '#2196F3',
             success: '#4CAF50',
             warning: '#FFC107',
-            background:'#141414'
+            background:'#202225'
           },
         },
       }

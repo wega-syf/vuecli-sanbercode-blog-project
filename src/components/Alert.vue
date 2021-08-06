@@ -14,7 +14,7 @@
           v-bind="attrs"
           @click="closeStatus"
         >
-          POGGERS
+          Close
         </v-btn>
       </template>
       </v-snackbar>
