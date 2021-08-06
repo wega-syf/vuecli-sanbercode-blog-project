@@ -1,61 +1,89 @@
 <template lang="">
-  <v-card >
-      <v-toolbar dark
-      src="https://images.unsplash.com/photo-1569982175971-d92b01cf8694?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8NHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60">
-          <v-btn icon dark @click.native='close'>
-              <v-icon>mdi-close</v-icon>
-          </v-btn>
-          <v-toolbar-title >
-              <h3>
-                  Welcome Back !
-              </h3>
-              </v-toolbar-title>
-      </v-toolbar>
+  <v-card class='d-flex justify-center' width="100vw">
+    <v-img :src= "require('../assets/' + getSrc)" height="100vh">
+      <v-container class='fill-height' fluid>
+        <v-row align='center' justify='center' >
+          <v-col cols='12' lg='5' md='8' sm='8'>    
 
-      <v-container fluid >
-          <v-form ref=form class='pa-5 pb-10 mt-2'>
-<!-- Email Field -->
-              <v-text-field
-                  name="email"
-                  v-model="email"
-                  label="E-mail"
-                  required
-
-                  :rules='emailRules'
-                  prepend-icon = 'mdi-email'
-              ></v-text-field>
-<!-- Password Field -->
-              <v-text-field
-                  name="password"
-                  v-model="password"
-                  label="Password"
-                  required
-                  
-                  :prepend-icon = 'showPassword ? "mdi-eye" : "mdi-eye-off"'
-                  :rules='passwordRules'
-                  :type='showPassword ? "text" : "password"'
-                  @click:prepend='showPassword = !showPassword'
-              ></v-text-field>
-
-<!-- Submit Button -->
-              <div class='text-xl-center mt-8'>
-                  <v-row justify='center'>
-                      
-                      <v-btn color="primary" medium
-                      @click='submit'>
-                      &nbsp;	&nbsp;Login	&nbsp;	&nbsp;
-                      <v-icon right small>mdi-lock</v-icon>
-                      </v-btn>
-                  </v-row>
-              </div>
+            <v-card class='d-flex justify-center elevation-6 rounded-xl' 
+            color="background lighten" >
               
-          </v-form>
+              <v-container fluid>
+                <v-row align='center' justify='center' >
+                  <v-col cols='12' lg='10'>
+                    <v-form ref=form class='pa-5 pb-10 mt-2'>
+                      <!-- Header -->
+                      <div class='pa-3 text-center'>
+                        <h3>Hello, Welcome back to</h3>
+                        <h2>Sanberposts Blogs &amp; News</h2>
+                      </div>
+
+                      <div class='mt-10 mb-5'>
+
+                        <!-- Email Field -->
+                        <v-text-field
+                            name="email"
+                            v-model="email"
+                            label="E-mail"
+                            required
+                            solo
+                            rounded
+                            placeholder="Enter your email here..."
+
+                            :rules='emailRules'
+                            prepend-icon = 'mdi-email'
+                        ></v-text-field>
+
+                        <!-- Password Field -->
+                        <v-text-field
+                            name="password"
+                            v-model="password"
+                            label="Password"
+                            required
+                            solo
+                            rounded
+                            placeholder="Enter your password here..."
+                            
+                            :prepend-icon = 'showPassword ? "mdi-eye" : "mdi-eye-off"'
+                            :rules='passwordRules'
+                            :type='showPassword ? "text" : "password"'
+                            @click:prepend='showPassword = !showPassword'
+                        ></v-text-field>
+                      </div>
+
+                      <!-- Login Button -->
+                      <div class='text-xl-center mt-3'>
+                        <v-row justify='center'>
+                          <v-btn color="primary" class='flat' medium
+                          @click='submit'>
+                            <v-icon left small>mdi-lock</v-icon> &nbsp;
+                          Login
+                          </v-btn>
+                        </v-row>
+                      </div>
+                      <!-- Close Button -->
+                      <div class='text-xl-center mt-5'>
+                        <v-row justify='center'>
+                          <v-btn color="red darken-2" dark medium 
+                          @click='close'>
+                            <v-icon left small>mdi-close</v-icon>&nbsp;
+                          Close
+                          </v-btn>
+                        </v-row>
+                      </div>
+                    </v-form>
+                  </v-col>
+                </v-row>
+              </v-container>
+            </v-card>
+          </v-col>
+        </v-row>
       </v-container>
-    </v-card>
-        
+    </v-img>
+  </v-card>
 </template>
 <script>
-import {mapActions} from 'vuex'
+import {mapActions, mapGetters} from 'vuex'
 
 export default {
     data() {
@@ -63,6 +91,7 @@ export default {
             showPassword:false,
             email:'',
             password:'',
+            darkMode:false,
             domain:'https://demo-api-vue.sanbercloud.com',
             emailRules:[
                 value => !!value || 'Please enter your email address'
@@ -71,6 +100,11 @@ export default {
                 value => !!value || 'Please enter your password'
             ]
         }
+    },
+    computed:{
+      ...mapGetters({
+        'getSrc' : 'dialog/getSrc'
+      })
     },
     methods: {
         ...mapActions({
@@ -115,6 +149,9 @@ export default {
             })
         }
     },
+    activated(){
+      console.log(this.$vuetify.theme.dark); 
+    }
 }
 </script>
 <style scoped>

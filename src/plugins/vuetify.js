@@ -12,16 +12,18 @@ export default new Vuetify({
             primary: colors.green,
             secondary: colors.grey.darken1,
             anchor: colors.grey.darken1,
+            background: '#FAFAFA'
           },
 
           dark: {
             primary: colors.purple.darken3,
-            secondary: colors.white,
+            secondary: colors.indigo.darken3,
             accent: colors.white,
             error: '#FF5252',
             info: '#2196F3',
             success: '#4CAF50',
             warning: '#FFC107',
+            background:'#141414'
           },
         },
       }

@@ -1,6 +1,6 @@
 <template>
  <!-- App.vue -->
-  <v-app>
+  <v-app :style="{background: $vuetify.theme.themes[theme].background}">
     
     <!-- NAV SIDEBAR -->
     <v-navigation-drawer app v-model="drawer"> 
@@ -21,7 +21,7 @@
               <v-icon left>mdi-lock</v-icon>
               Login
             </v-btn>
-            <v-btn block color='success' @click="signUp" class="mb-1">
+            <v-btn block color='secondary' @click="signUp" class="mb-1">
               <v-icon left>mdi-account</v-icon>
               Sign Up
             </v-btn>
@@ -40,8 +40,24 @@
                 {{item.title}}
               </v-list-item-title>
             </v-list-item-content>
-
+          
           </v-list-item>
+
+          <!-- Add Blog -->
+          <v-list-item v-if="!guest"
+           :to="addBlog.route">
+            <v-list-item-icon>
+              <v-icon left>{{addBlog.icon}}</v-icon>
+            </v-list-item-icon>
+
+            <v-list-item-content>
+              <v-list-item-title>
+                {{addBlog.title}}
+              </v-list-item-title>
+            </v-list-item-content>
+          
+          </v-list-item>
+
         </v-list>  
 
       <template v-slot:append v-if="!guest">
@@ -111,16 +127,21 @@ export default {
     menus:[
       {title: 'Home', icon :'mdi-home', route:'/'},
       {title :' Blogs', icon : 'mdi-note', route: '/blogs'},
-      {title :' About', icon : 'mdi-information', route: '/about'},
-      {title :' AddBlog ', icon : 'mdi-book-plus', route: '/add-blog'}
-    ]
+      {title :' About Us', icon : 'mdi-information', route: '/about'},
+    ],
+    addBlog:
+      {title :' Add Blog ', icon : 'mdi-book-plus', route: '/add-blog'},
+
   }),
   computed: {
     ...mapGetters({
       guest : 'auth/getGuest',
       user : 'auth/getUser',
       token : 'auth/getToken'
-    })
+    }),
+    theme(){
+      return (this.$vuetify.theme.dark) ? 'dark' : 'light'
+    }
   },
   methods:{
     toggleDrawer(){
@@ -203,3 +224,6 @@ export default {
   }, 
 };
 </script>
+<style>
+
+</style>
