@@ -31,15 +31,12 @@
 
 <script>
   import BlogCard from '../components/BlogCard.vue'
-  
-
   import {mapGetters,mapActions} from 'vuex'
 
   export default {
     name: 'Home',
     components:{
       BlogCard,
-      
     },
     data() {
       return {
