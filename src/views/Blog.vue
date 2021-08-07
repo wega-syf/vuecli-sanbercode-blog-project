@@ -218,7 +218,7 @@ export default {
                 })
         },
         submitPhoto: function(){
-            let {id} = this.$route.params
+            
             let formData = new FormData()
             let {id} = this.$route.params
             formData.append('photo', this.fileInput)
