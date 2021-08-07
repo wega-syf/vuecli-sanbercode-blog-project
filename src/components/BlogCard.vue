@@ -1,7 +1,7 @@
 <template lang="">
-  <v-card class='mx-auto' max-width="400" :to='"/blog/"+blog.id'>
+  <v-card class='mx-auto' max-width="400" :to='routeMethod(blog)'>
     <v-img
-      :src='blog.photo?domain + blog.photo : "https://picsum.photos/590/200"'
+      :src='photoMethod(blog)'
       height="300px"
       class="white--text"
       >
@@ -25,8 +25,7 @@
             ml-6 pa-3
             text-center  
             text-caption
-            text-md-subtitle-1
-            text-lg-h6'>
+            text-md-subtitle-2'>
               {{blog.title}}
             </div>
           </v-img>
@@ -54,7 +53,7 @@
       >
       </v-row>
       <div>
-        {{blog.description.substring(0,70)}}...
+        {{ dataMethod(blog)}}...
       </div>
     </v-card-text>
     <v-card-actions>
@@ -64,12 +63,41 @@
 </template>
 <script>
 export default {
-    props:['blog'],
+    props:['blog','index'],
     data() {
         return {
             domain:'https://demo-api-vue.sanbercloud.com'
         }
     },
+    methods:{
+      dataMethod(blog){
+        if (blog.description) {
+          return blog.description.slice(0,30)
+        }
+        else if (blog.summary) {
+          return blog.summary.slice(0,30)
+        }
+        else return '/error'
+      },
+      routeMethod(blog){
+        if (blog.description) {
+          return "/blog/"+ blog.id
+        }
+        else if (blog.summary) {
+          return "/news/" + this.index
+        }
+        else return '/error'
+      },
+      photoMethod(blog){
+        if (blog.description) {
+          return blog.photo? this.domain + blog.photo : "https://picsum.photos/400/200"
+        }
+        else if (blog.summary) {
+          return blog.media? blog.media : "https://picsum.photos/400/200"
+        }
+        else return '/error'
+      }
+    }
 }
 </script>
 <style lang="">

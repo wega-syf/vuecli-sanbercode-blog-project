@@ -1,4 +1,4 @@
-<template lang="">
+<template >
   <v-card class='d-flex justify-center' width="100vw">
     <v-img :src= "require('../assets/' + getSrc)" height="100vh">
       <v-container class='fill-height' fluid>
@@ -11,7 +11,15 @@
                     <v-form ref=form class='pa-5 pb-10 mt-2'>
                       <!-- Header -->
                       <div class='pa-3 text-left'>
-                        <h1 class='mb'>Login</h1>
+                        <div class=' d-flex justify-space-between'>
+                          <h1 class='mb'>Login</h1>
+                            <v-progress-circular
+                                  v-if="loading"
+                                  indeterminate
+                                  color="green"
+                                ></v-progress-circular>
+                        </div>
+                        
                         <v-divider></v-divider>
                         <p class='mt-5 '>Hello! Welcome back to Sanberposts Blogs &amp; News!</p>
                       </div>
@@ -67,6 +75,7 @@
                             <v-icon left small>mdi-close</v-icon>&nbsp;
                           Close
                           </v-btn>
+                          
                         </v-row>
                       </div>
                     </v-form>
@@ -87,6 +96,7 @@ export default {
     data() {
         return {
             showPassword:false,
+            loading:false,
             email:'',
             password:'',
             darkMode:false,
@@ -105,46 +115,48 @@ export default {
       })
     },
     methods: {
-        ...mapActions({
-            'setAlert': 'alert/setAction',
+      ...mapActions({
+        'setAlert': 'alert/setAction',
             'setToken' : 'auth/setToken'
             }),
         close(){
-            this.$emit('closed',false)  // di emit ke parents, dimana ditangkep oleh event closed, nanti di panggil setDialogStatus
+          this.$emit('closed',false)  // di emit ke parents, dimana ditangkep oleh event closed, nanti di panggil setDialogStatus
         },
         submit(){
-            console.log('submitted');
+          this.loading=true
+          console.log('submitted');
+          const config = {
+            method:'post',
+              url: this.domain + '/api/v2/auth/login',
+              data:{
+                'email' : this.email,
+                  'password' : this.password
+              }
+          }
+          this.axios(config)
+          .then( response => {
+              console.log(response.data);
+              this.loading=false
+              // pasang token menggunakan setToken action
+              this.setToken(response.data.access_token)
 
-            const config = {
-                method:'post',
-                url: this.domain + '/api/v2/auth/login',
-                data:{
-                    'email' : this.email,
-                    'password' : this.password
-                }
-            }
-            this.axios(config)
-            .then( response => {
-                console.log(response.data);
-                // pasang token menggunakan setToken action
-                this.setToken(response.data.access_token)
-
-                // Tampilkan alert
-                this.setAlert({
-                    status : true,
-                    color : 'success',
-                    text:'Login Berhasil'
-                })
-                this.close() //tutup dialog
-            })
-            .catch(response =>  {
-                console.log(response)
-                this.setAlert({
-                    status : true,
-                    color : 'error',
-                    text: 'Login Gagal'
-                })
-            })
+              // Tampilkan alert
+              this.setAlert({
+                  status : true,
+                  color : 'success',
+                  text:'Login Berhasil'
+              })
+              this.close() //tutup dialog
+          })
+          .catch(response =>  {
+              console.log(response)
+              this.loading=false
+              this.setAlert({
+                  status : true,
+                  color : 'error',
+                  text: 'Login Gagal'
+              })
+          })
         }
     },
     activated(){

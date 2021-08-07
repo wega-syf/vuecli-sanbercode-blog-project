@@ -64,6 +64,9 @@
               <v-list-item-title>
                 {{addBlog.title}}
               </v-list-item-title>
+              <v-list-item-subtitle v-if="guest">
+                You have to login first
+              </v-list-item-subtitle>
             </v-list-item-content>
           
           </v-list-item>
@@ -85,7 +88,8 @@
      <!--TOP NAV BAR -->
     <v-app-bar app color='primary' :src="require('./assets/' + srcPic)">
       <v-app-bar-nav-icon @click.stop="toggleDrawer"></v-app-bar-nav-icon>
-      <v-toolbar-title>SanberPosts</v-toolbar-title>
+      <v-toolbar-title >
+      <v-card :to='"/"' color="transparent" class="pa-1" flat>SanberPosts</v-card> </v-toolbar-title>
       <v-spacer></v-spacer>
       <div class="pt-4 ml-3">
 
@@ -194,7 +198,7 @@ export default {
         method : 'post',
         url: this.domain + '/api/v2/auth/logout',
         headers:{
-          'Authorization' : 'Bearer' + this.token
+          'Authorization' : 'Bearer ' + this.token
         }
       }
       this.axios(config)
