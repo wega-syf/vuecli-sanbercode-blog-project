@@ -72,12 +72,12 @@
                         <span> Upload Blog Photo</span>
                     </v-card-title>
                     <v-file-input
-                        v-model="file"
-                        class="ma-3"
+                        v-model="fileInput"
                         show-size
                         counter
-                        multiple
                         label="File input"
+                        truncate-length="125"
+                        accept="image/*"
                     ></v-file-input>
                     <v-card-actions>
                         <v-row class='ma-3 pa-3'>
@@ -106,7 +106,7 @@ export default {
             dialogPhoto: false,
             idEditBlog: null,
             idUploadBlog: null,
-            file: ''
+            fileInput: null
         }
     },
     computed: {
@@ -147,7 +147,7 @@ export default {
 
                 let config = {
                     method : "post",
-                    url : `http://demo-api-vue.sanbercloud.com/api/blog/${id}`,
+                    url : `http://demo-api-vue.sanbercloud.com/api/v2/blog/${id}`,
                     params : {_method : 'PUT'},
                     headers :{'Authorization' : 'Bearer ' + this.token},
                     data : formData
@@ -161,6 +161,7 @@ export default {
                             color: 'deep-purple darken-2',
                             text : 'Blog berhasil di edit'
                         })
+                        this.$forceUpdate()
                     })
                     .catch( (error) => {
                         console.log(error)
@@ -173,19 +174,21 @@ export default {
             }
         },
 
-        submitPhoto: function(id){
+        submitPhoto: function(){
             let formData = new FormData()
-            formData.append('photo', this.file)
+            let {id} = this.$route.params
+            formData.append('photo', this.fileInput)
 
             let config = {
                 method : "post",
-                url : `http://demo-api-vue.sanbercloud.com/api/blog/${id}/upload-photo`,
+                url : `http://demo-api-vue.sanbercloud.com/api/v2/blog/${id}/upload-photo`,
                 headers :{'Authorization' : 'Bearer ' + this.token},
                 data : formData
             }
 
             this.axios(config)
                 .then( () =>{
+                    this.$forceUpdate()
                     this.setAction({
                         status: true,
                         color: 'deep-purple darken-2',
