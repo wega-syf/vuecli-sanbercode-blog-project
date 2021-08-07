@@ -1,7 +1,7 @@
 <template>
     <v-card >
          <v-img
-          :src='blog.photo?domain + blog.photo : "https://picsum.photos/590/200"'
+          :src='blog.photo ? domain + blog.photo : "https://picsum.photos/590/200"'
           height="200px"
           class="white--text"
           >
@@ -37,8 +37,13 @@
             </template>
             <v-card>
                 <v-card-title>
+<<<<<<< HEAD
                     <v-icon>mdi-post</v-icon>
                     <span> Edit Blogs</span>
+=======
+                    <v-icon color="grey darken-3">mdi-post</v-icon>
+                    <span class="text-h5"> Edit Blogs</span>
+>>>>>>> master
                 </v-card-title>
                 <v-card-text>
                     <v-text-field required v-model="title" label="Judul Blog"></v-text-field>
@@ -53,11 +58,35 @@
                 </v-card-actions>
             </v-card>
           </v-dialog>
+<<<<<<< HEAD
 
         <v-btn class="mr-3" text>
             <v-icon>mdi-delete</v-icon>
             Delete
         </v-btn>
+=======
+        <v-dialog persistent transition="dialog-top-transition" max-width="600" v-model="dialogDelete">
+            <template v-slot:activator="{ on, attrs }">
+                <v-btn class="mr-3" text v-bind="attrs" v-on="on">
+                    <v-icon>mdi-delete</v-icon>
+                    Delete
+                </v-btn>
+            </template>
+            <v-card>
+                <v-toolbar color="success" class="text-h5">Are you sure you want to delete this blog?</v-toolbar>
+                <v-card-text>
+                    <div class="text-p pa-3">Blogs that you have deleted cannot be returned</div>
+                </v-card-text>
+                <v-card-actions>
+                    <v-row class="ma-3 pa-3">
+                        <v-spacer></v-spacer>
+                        <v-btn color="blue" text @click="removeBlog(blog.id)">Delete</v-btn>
+                        <v-btn color="blue" text @click="dialogDelete = false">Cancel</v-btn>
+                    </v-row>
+                </v-card-actions>
+            </v-card>
+        </v-dialog>
+>>>>>>> master
         <v-dialog persistent v-model="dialogPhoto">
             <template v-slot:activator="{ on, attrs }">
                 <v-btn text v-bind="attrs" v-on="on">
@@ -68,8 +97,13 @@
             <template>
                 <v-card>
                     <v-card-title>
+<<<<<<< HEAD
                         <!-- <v-icon>mdi-post</v-icon> -->
                         <span> Upload Blog Photo</span>
+=======
+                        <v-icon color="grey darken-3">mdi-upload</v-icon>
+                        <span class="text-h5"> Upload Blog Photo</span>
+>>>>>>> master
                     </v-card-title>
                     <v-file-input
                         v-model="file"
@@ -82,7 +116,11 @@
                     <v-card-actions>
                         <v-row class='ma-3 pa-3'>
                             <v-spacer></v-spacer>
+<<<<<<< HEAD
                             <v-btn color="blue" text @click="submitPhoto(idUploadBlog)">Upload</v-btn>
+=======
+                            <v-btn color="blue" text @click="submitPhoto">Upload</v-btn>
+>>>>>>> master
                             <v-btn color="blue" text @click="dialogPhoto = false">Cancel</v-btn>
                         </v-row>
                     </v-card-actions>
@@ -104,9 +142,16 @@ export default {
             domain:'https://demo-api-vue.sanbercloud.com',
             dialog: false,
             dialogPhoto: false,
+<<<<<<< HEAD
             idEditBlog: null,
             idUploadBlog: null,
             file: ''
+=======
+            dialogDelete: false,
+            idEditBlog: null,
+            // idUploadBlog: null,
+            file: null
+>>>>>>> master
         }
     },
     computed: {
@@ -137,7 +182,11 @@ export default {
             this.title = ''
             this.description = ''
             this.idEditBlog = null
+<<<<<<< HEAD
             this.idUploadBlog = null
+=======
+            // this.idUploadBlog = null
+>>>>>>> master
         },
         updateBlog: function(id){
             if(this.error.length === 0){
@@ -147,7 +196,11 @@ export default {
 
                 let config = {
                     method : "post",
+<<<<<<< HEAD
                     url : `http://demo-api-vue.sanbercloud.com/api/blog/${id}`,
+=======
+                    url : `${this.domain}/api/v2/blog/${id}`,
+>>>>>>> master
                     params : {_method : 'PUT'},
                     headers :{'Authorization' : 'Bearer ' + this.token},
                     data : formData
@@ -155,11 +208,20 @@ export default {
 
                 this.axios(config)
                     .then( () =>{
+<<<<<<< HEAD
+=======
+                        let {id} = this.$route.params
+                        this.$router.push(`/blog/:${id}`)
+>>>>>>> master
                         this.clearForm()
                         this.setAction({
                             status: true,
                             color: 'deep-purple darken-2',
+<<<<<<< HEAD
                             text : 'Blog berhasil di edit'
+=======
+                            text : 'Blog has been successfully edited'
+>>>>>>> master
                         })
                     })
                     .catch( (error) => {
@@ -172,24 +234,67 @@ export default {
                     })
             }
         },
+<<<<<<< HEAD
 
         submitPhoto: function(id){
+=======
+        removeBlog: function(id){
+            const config ={ 
+                method : "post",
+                url : `${this.domain}/api/v2/blog/${id}`,
+                headers :{'Authorization' : 'Bearer ' + this.token},
+                params : {_method : "DELETE"}
+            }
+            this.axios(config)
+                .then( () =>{
+                    this.$router.push('/blogs')
+                    this.setAction({
+                        status: true,
+                        color: 'deep-purple darken-2',
+                        text : 'Blog has been successfully deleted'
+                    })
+                })
+                .catch( (error) => {
+                    console.log(error)
+                    this.setAction({
+                        status : true,
+                        color: 'deep-purple darken-2',
+                        text : error.data
+                    })
+                })
+        },
+        submitPhoto: function(){
+            let {id} = this.$route.params
+>>>>>>> master
             let formData = new FormData()
             formData.append('photo', this.file)
 
             let config = {
                 method : "post",
+<<<<<<< HEAD
                 url : `http://demo-api-vue.sanbercloud.com/api/blog/${id}/upload-photo`,
+=======
+                url : `${this.domain}/api/v2/blog/${id}/upload-photo`,
+>>>>>>> master
                 headers :{'Authorization' : 'Bearer ' + this.token},
                 data : formData
             }
 
             this.axios(config)
                 .then( () =>{
+<<<<<<< HEAD
                     this.setAction({
                         status: true,
                         color: 'deep-purple darken-2',
                         text : 'Photo berhasil di upload'
+=======
+                    this.go()
+                    // this.$router.push(`/blog/${id}`)
+                    this.setAction({
+                        status: true,
+                        color: 'deep-purple darken-2',
+                        text : 'Photo uploaded successfully'
+>>>>>>> master
                     })
                 })
                 .catch( (error) => {

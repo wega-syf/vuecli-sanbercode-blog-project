@@ -4,6 +4,7 @@ import alert from './modules/alert'
 import auth from './modules/auth'
 import counter from './modules/counter'
 import dialog from './modules/dialog'
+import news from './modules/news'
 
 // Perlu VUEX PERSIST supaya data login tersimpan meskipun halamannya di refresh. Penyimpanan data dilakukan dengan localStorage
 // Install dulu vuexpersist dengan npm install --save vuex-persist
@@ -15,8 +16,6 @@ const vuexPersist = new VuexPersist ({
 })
 
 
-
-
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -26,6 +25,7 @@ export default new Vuex.Store({
         auth,
         counter,
         dialog,
+        news
     },
     
 })

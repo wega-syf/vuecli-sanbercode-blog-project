@@ -1,4 +1,4 @@
-<template lang="">
+<template>
     <v-card class='d-flex justify-center' width="100vw">
         <v-img :src= "require('../assets/' + getSrc)" height="100vh">
             <v-container class='fill-height' fluid>
@@ -10,8 +10,15 @@
                                     <v-col cols='12' lg='10'>
                                         <v-form ref=form class='pa-3 pb-5 mt-2'>
                                             <!-- Header -->
-                                            <div class='pa-3 text-left'>
-                                                <h1 class='mb'>Sign Up</h1>
+                                                <div class='pa-3 text-left'>
+                                                    <div class=' d-flex justify-space-between'>
+                                                    <h1 class='mb'>Sign Up</h1>
+                                                        <v-progress-circular
+                                                            v-if="loading"
+                                                            indeterminate
+                                                            color="green"
+                                                            ></v-progress-circular>
+                                                    </div>
                                                 <v-divider></v-divider>
                                                 <p class='mt-5 '>
                                                 Fill out the form below to create your account!</p>
@@ -105,7 +112,8 @@ export default {
         password: '',
         name: '',
         file: null,
-        domain: 'https://demo-api-vue.sanbercloud.com'}
+        domain: 'https://demo-api-vue.sanbercloud.com',
+        loading:false,}
     },
     computed:{
       ...mapGetters({
@@ -129,7 +137,7 @@ export default {
        
         submit(){
             console.log('submitted')
-            
+            this.loading=true
             let formdata= new FormData();
             formdata.append('email', this.email)
             formdata.append('password', this.password)
@@ -143,6 +151,7 @@ export default {
             }
             this.axios(config)
             .then( response => {
+                this.loading=false
                 console.log(response.data);
                 this.clearform()
                 this.setAlert({
@@ -154,6 +163,7 @@ export default {
             })
             .catch(error =>  {
                 console.log(error.response.data)
+                this.loading=false
                 this.setAlert({
                     status : true,
                     color : 'error',

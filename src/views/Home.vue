@@ -62,24 +62,74 @@
         .then((response) => {
           let {blogs} = response.data
           console.log(blogs)
-          this.blogs = blogs})
+          this.blogs = blogs
+        })
 
         .catch(error => console.log(error))
+
         },
-      ...mapActions({
-        'incrementAction' : 'counter/incrementAction'
-      }),
-      add(){
-        this.incrementAction(10)
+      async fetchRandom(){
+        // REQUEST RANDOM WORDS API
+        const options = {
+          method:'GET',
+          url:'http://random-word-api.herokuapp.com/word?number=10'
+
+        }
+        this.axios.request(options)
+        .then(response=>{
+          this.randomQuery = response.data[0].slice(0,3)
+
+          // WAIT FOR A RANDOM WORD BEFORE FETCHING NEWS
+          this.fetchNews()
+          
+        })
+        .catch(error => console.log(error))
       },
+      async fetchNews(){
+
+        // REQUEST FREE NEWS API 
+        const options = {
+        method: 'GET',
+        url: 'https://free-news.p.rapidapi.com/v1/search',
+        params: {q: this.randomQuery, lang: 'en'},
+        headers: {
+          'x-rapidapi-key': '56ac13e70bmsh887dc6b584d5c44p113f1ajsnc13135524d37',
+          'x-rapidapi-host': 'free-news.p.rapidapi.com'
+            }
+          };
+
+          this.axios(options)
+          .then((response) => {
+            let {articles} = response.data
+            console.log(articles);
+            this.articleNews = articles
+            
+            // save it to vuex news store
+            this.inputArticles(articles)
+          }).catch((error) => {
+            console.log(error);
+          });
+
+        },
+
     },
     computed:{
       ...mapGetters({
-        'getCount': 'counter/getCount'
+        'getCount': 'counter/getCount',
+        'getArticles' : 'news/getArticles'
         })
     },
-    created(){
-      this.go()
+    async created(){
+      await this.go()
+      await this.fetchRandom()
+      // await this.fetchNews()
+
+      // Fetch if article is not saved on the vuex
+      // if (this.getArticles.length){
+      //   this.articleNews = this.getArticles
+      // } else{
+      //   this.fetchNews()
+      // }
     }
   }
 </script>
