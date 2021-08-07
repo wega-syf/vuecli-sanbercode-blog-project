@@ -1,31 +1,29 @@
 <template>
-  <v-container grid-list-xs class="ma-1 pa-0">
-    
-    <h1 class="mr-3 mt-3 text-center">
-      Recommended Blogs For You
-    </h1>
-    <br>
-    <v-divider></v-divider>
-    <br>
-    <div class="text-right">
-      <v-btn x-large to='/blogs' class="blue--text" text>
-        All Blogs 
-        <v-icon>mdi-chevron-right</v-icon>
-      </v-btn>
+  <v-container>
+    <div>
+
+      <h1 class="mr-3 mt-3 text-center">
+        Featured Blogs
+      </h1>
+      <v-row justify="center">
+        <v-btn right x-large to='/blogs' class="blue--text text-right" text>
+          All Blogs 
+          <v-icon>mdi-chevron-right</v-icon>
+        </v-btn>
+      </v-row>
     </div>
 
-    <v-layout wrap >
-      <BlogCard
-      v-for="(blog, index) in blogs" 
-      :key="index"
-      :blog='blog' 
-      />
-    </v-layout>
-    <br>
-    <h3>This is just a counter</h3>
-    <p>It was just for practice purpose</p>
-    <v-btn color="success" @click="add">Add by 10</v-btn>
-    <h3> Counter : {{getCount}} </h3>
+    <v-flex xs12 class="mt-4">
+      <v-row class="d-flex" justify='center'>
+        <v-col cols="12" xs='12' md="6"
+        v-for="(blog, index) in blogs" :key="index">
+          <BlogCard 
+          :blog='blog'/>
+        </v-col>
+      </v-row>
+    </v-flex>
+   
+    
   </v-container>
 </template>
 
@@ -41,10 +39,22 @@
     data() {
       return {
         blogs:[],
+        length:4,
+        onboarding:0,
         domain:'https://demo-api-vue.sanbercloud.com'
       }
     },
     methods: {
+       next () {
+        this.onboarding = this.onboarding + 1 === this.length
+          ? 0
+          : this.onboarding + 1
+      },
+      prev () {
+        this.onboarding = this.onboarding - 1 < 0
+          ? this.length - 1
+          : this.onboarding - 1
+      },
       go(){
         // console.log(this.$store.modules);  //ngetest state store
         const api = this.domain + '/api/v2/blog/random/4'
