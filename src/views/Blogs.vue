@@ -1,4 +1,8 @@
+<<<<<<< HEAD
+<template lang="">
+=======
 <template>
+>>>>>>> master
     <v-container>
         <div class='text-center '>
             <h1>All Blogs</h1>
@@ -7,7 +11,11 @@
 
             <v-flex xs12 class="mt-4">
                 <v-row class="d-flex" justify='center'>
+<<<<<<< HEAD
+                <v-col cols="12" xs='12' md="6"
+=======
                 <v-col cols="12" xs='12' md="6" lg='3'
+>>>>>>> master
                 v-for="(blog, index) in blogs" :key="index">
                     <BlogCard 
                     :blog='blog'/>
@@ -19,12 +27,18 @@
             <v-pagination
             class='mt-8'
             v-model="page"
+<<<<<<< HEAD
+            :length="15"
+=======
             :length="lengthPage"
+>>>>>>> master
             :total-visible="7"
             @input="go"
             circle
             ></v-pagination>
         </div>
+<<<<<<< HEAD
+=======
         <v-divider class="ma-6"></v-divider>
 
         <div class='text-center mt-3'>
@@ -53,6 +67,7 @@
             circle
             ></v-pagination>
         </div>
+>>>>>>> master
 
     </v-container>
 </template>

@@ -91,6 +91,10 @@
       <v-toolbar-title >
       <v-card :to='"/"' color="transparent" class="pa-1" flat>SanberPosts</v-card> </v-toolbar-title>
       <v-spacer></v-spacer>
+      <div class="pt-8 ml-8">
+        <SearchBar :showed="toggleShow"/>
+      </div>
+      <v-spacer></v-spacer>
       <div class="pt-4 ml-3">
 
         <ToggleDarkMode  />
@@ -126,16 +130,19 @@ import {mapActions,mapGetters} from 'vuex'
 import Alert from './components/Alert.vue'
 import Dialog from './components/Dialog.vue'
 import ToggleDarkMode from './components/ToggleDarkMode.vue'
+import SearchBar from './components/SearchBar.vue'
 
 export default {
   name: 'App',
   components:{
     Alert,
     Dialog,
-    ToggleDarkMode
+    ToggleDarkMode,
+    SearchBar
   },
   data: () => ({
     //
+    showSearch:null,
     drawer:false,
     domain:'http://demo-api-vue.sanbercloud.com',
     menus:[
@@ -159,6 +166,9 @@ export default {
     }
   },
   methods:{
+    toggleShow(){
+      this.showSearch= true
+    },
     toggleDrawer(){
       this.drawer = !this.drawer
     },
@@ -237,6 +247,9 @@ export default {
       this.checkToken(this.token)  
     }
   }, 
+  created(){
+    this.toggleShow()
+  }
 };
 </script>
 <style>

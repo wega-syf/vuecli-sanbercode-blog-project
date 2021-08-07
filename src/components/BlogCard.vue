@@ -1,7 +1,13 @@
 <template lang="">
+<<<<<<< HEAD
+  <v-card class='mx-auto' max-width="400" :to='"/blog/"+blog.id'>
+    <v-img
+      :src='blog.photo?domain + blog.photo : "https://picsum.photos/590/200"'
+=======
   <v-card class='mx-auto' max-width="400" :to='routeMethod(blog)'>
     <v-img
       :src='photoMethod(blog)'
+>>>>>>> master
       height="300px"
       class="white--text"
       >
@@ -25,7 +31,12 @@
             ml-6 pa-3
             text-center  
             text-caption
+<<<<<<< HEAD
+            text-md-subtitle-1
+            text-lg-h6'>
+=======
             text-md-subtitle-2'>
+>>>>>>> master
               {{blog.title}}
             </div>
           </v-img>
@@ -53,7 +64,11 @@
       >
       </v-row>
       <div>
+<<<<<<< HEAD
+        {{blog.description.substring(0,70)}}...
+=======
         {{ dataMethod(blog)}}...
+>>>>>>> master
       </div>
     </v-card-text>
     <v-card-actions>
