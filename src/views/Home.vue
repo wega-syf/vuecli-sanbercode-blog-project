@@ -161,7 +161,7 @@
         // REQUEST RANDOM WORDS API
         const options = {
           method:'GET',
-          url:'http://random-word-api.herokuapp.com/word?number=10'
+          url:'https://random-word-api.herokuapp.com/word?number=10'
 
         }
         this.axios.request(options)

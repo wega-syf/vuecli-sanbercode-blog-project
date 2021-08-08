@@ -152,7 +152,7 @@ export default {
   data: () => ({
     //
     drawer:false,
-    domain:'http://demo-api-vue.sanbercloud.com',
+    domain:'https://demo-api-vue.sanbercloud.com',
     menus:[
       {title: 'Home', icon :'mdi-home', route:'/'},
       {title :' Blogs', icon : 'mdi-note', route: '/blogs'},
