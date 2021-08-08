@@ -1,5 +1,10 @@
 <template>
   <v-container>
+    <v-row justify="center">
+      <div class="text-center text-h6 text-lg-h3 ma-6">
+        Meet The Creators Of This Website
+      </div>
+    </v-row>
     <v-row>
       <v-col>
         <v-card class="mx-auto" max-width="350">

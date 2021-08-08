@@ -106,16 +106,25 @@
     
       <!-- Provides the application the proper gutter -->
       <v-container fluid>
-        <v-slide-y-transition>
+        <v-fade-transition>
           <!-- If using vue-router -->
           <router-view></router-view>
-        </v-slide-y-transition>
+        </v-fade-transition>
       </v-container>
     </v-main>
 
-    <v-footer app>
-      <!-- -->
-      @Wegs 2022 | Sanbercode Vue JS 
+    <v-footer app padless>
+      <v-card
+            height="6vh"
+            class="flex"
+            tile
+          >
+
+            <v-card-text class="py-2 text-center">
+              {{ new Date().getFullYear() }} — <strong>Vuetify | Alcazor Team - Adnan, Burhan, Wega</strong>
+              <!-- <div class="text-caption">Alacazor Team - Adnan, Burhan, Wega</div> -->
+            </v-card-text>
+          </v-card>
     </v-footer>
 
     <!-- Calling other components -->

@@ -41,7 +41,6 @@ data(){
 computed: {
     queryComp(){
         let searchQuery = this.$route.params.query
-        console.log(searchQuery + 'KONTOL');
         return searchQuery
     },
     // View ones that match the search query
@@ -60,11 +59,11 @@ methods:{
         }
         this.axios(config)
         .then(response =>{
-            console.log(response.data);
+            // console.log(response.data);
             let {total} = response.data.blogs
             this.total = total
-            console.log(this.total);
-
+            // console.log(this.total);
+            // Call 
             this.getAll()
             
         }).catch(error => console.log(error))
@@ -80,7 +79,7 @@ methods:{
             console.log(response.data);
             let {blogs} = response.data
             this.blogs = blogs
-            console.log(this.blogs);
+            // console.log(this.blogs);
             
         }).catch(error => console.log(error))
     }

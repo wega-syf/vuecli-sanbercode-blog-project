@@ -29,7 +29,7 @@ data(){
 
 methods: {
     callComponent(){
-        this.$router.push(`/search/${this.search}`)
+       if (this.$route.path !== this.path) this.$router.push(`/search/${this.search}`)
     }
     //     go(){
     //     const config={
