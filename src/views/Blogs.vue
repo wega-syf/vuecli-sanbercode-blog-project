@@ -38,7 +38,7 @@
                 v-for="(blog, index) in articles" :key="index">
                     <BlogCard 
                     :blog='blog'
-                    :index='index'/>
+                    :index='getIndex(blog)'/>
                 </v-col>
                 </v-row>
             </v-flex>
@@ -102,7 +102,11 @@ export default {
         this.articles = this.getArticle.slice(
         this.lastIndex * (this.pageNews-1),
         (this.pageNews * this.lastIndex))
-    }
+    },
+    getIndex(blog){
+        let index = this.getArticles.map(e=>e.title).indexOf(blog.title)
+        return index
+      },
 
 
     },
