@@ -158,7 +158,7 @@ export default {
         })
     },
     methods: {
-        go(){
+        async go(){
             let{id} = this.$route.params
             const config={
                 method:'get',
@@ -197,17 +197,14 @@ export default {
                 }
 
                 this.axios(config)
-                    .then( () =>{
-                        // let {id} = this.$route.params
-                        // this.$router.push(`/blog/:${id}`)
-                        this.$forceUpdate()
+                    .then( (response) =>{
+                        this.blog = response.data.blog
                         this.clearForm()
                         this.setAction({
                             status: true,
                             color: 'deep-purple darken-2',
                             text : 'Blog has been successfully edited'
                         })
-                        this.$forceUpdate()
                     })
                     .catch( (error) => {
                         console.log(error)
@@ -258,7 +255,8 @@ export default {
             }
 
             this.axios(config)
-                .then( () =>{
+                .then( (response) =>{
+                    this.blog = response.data.blog
                     // this.go()
                     // this.$router.push(`/blog/${id}`)
                     this.setAction({
