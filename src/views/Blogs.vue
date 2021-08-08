@@ -78,7 +78,7 @@ export default {
     },
     computed:{
         ...mapGetters({
-            'getArticle' : 'news/getArticles'
+            'getArticles' : 'news/getArticles'
         })
     },methods:{
         async go(){
