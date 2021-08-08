@@ -97,9 +97,7 @@ export default {
             .catch(error => console.log(error))
         },
     goNews(){
-        console.log(this.getArticle);
-        console.log(this.pageNews);
-        this.articles = this.getArticle.slice(
+        this.articles = this.getArticles.slice(
         this.lastIndex * (this.pageNews-1),
         (this.pageNews * this.lastIndex))
     },
